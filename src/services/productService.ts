@@ -3,6 +3,21 @@ import Product from "../models/Product";
 
 const baseURL: string = process.env.REACT_APP_API_BASE_URL || "";
 
-export const getProducts = async (): Promise<Product[]> => {
-  return (await axios.get(`${baseURL}/products`)).data;
+export const getProducts = async (
+  maxPrice: number | null,
+  includes: string | null,
+  limit: number | null
+): Promise<Product[]> => {
+  const params = {
+    ...(maxPrice ? { "max-price": maxPrice } : {}),
+    ...(includes ? { includes } : {}),
+    ...(limit ? { limit } : {}),
+  };
+
+  return (await axios.get(`${baseURL}/products`, { params })).data;
+};
+
+export const getProductByID = async (_id: string): Promise<Product> => {
+  return (await axios.get(`${baseURL}/products/${encodeURIComponent(_id)}`))
+    .data;
 };
