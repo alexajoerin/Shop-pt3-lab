@@ -17,7 +17,7 @@ export const getProducts = async (
   return (await axios.get(`${baseURL}/products`, { params })).data;
 };
 
-export const getProductByID = async (_id: string): Promise<Product> => {
-  return (await axios.get(`${baseURL}/products/${encodeURIComponent(_id)}`))
+export const getProductByID = async (id: string): Promise<Product> => {
+  return (await axios.get(`${baseURL}/products/${encodeURIComponent(id)}`))
     .data;
 };
